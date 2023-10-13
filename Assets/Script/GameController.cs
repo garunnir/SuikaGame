@@ -243,6 +243,7 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
             b.gameObject.SetActive(false);
             Transform tp=SetVFX(VFX.Poof, b.transform.position,b.transform.parent,isMulti:true);
+            GameManager.Instance.soundController.OneShot(SoundController.Audio.poof);
             tp.localScale /= 2;
             m_score += b.Getlv() * 20;
             ShowScore();

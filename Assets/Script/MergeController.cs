@@ -85,6 +85,7 @@ public class MergeController : MonoBehaviour
     }
     public void ReceiveColl(MergeSender send,Collision2D collision)
     {
+        if(send.GetDelta().magnitude > 0.018f)
         GameManager.Instance.soundController.OneShot(SoundController.Audio.creek);
         if (collision.gameObject.name == "Wall") return;//벽은 무시
         //if (send == m_current|| m_current == null)

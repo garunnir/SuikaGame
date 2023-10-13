@@ -6,7 +6,7 @@ public class SoundController : MonoBehaviour
 {
     public enum Audio
     {
-        creek,
+        creek,poof
     }
     AudioSource m_AudioSource;
     [SerializeField]AudioClip[] m_clips;
