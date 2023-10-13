@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 5375145537384b1448d23df75f35970e
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - AndongKaturi
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 086d916fbd69abf428485afc2d1fd315, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
