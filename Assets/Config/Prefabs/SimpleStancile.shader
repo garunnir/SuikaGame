@@ -121,11 +121,14 @@ Shader "UI/Unlit/SimpleStencil"
                 if(alpha>_Cutout)alpha=1;
                 color.a = color.a - alpha;
                 //color = color * _Color;
-    if (distance(float2(0, 0), float2(i.worldPosition.xy)) > 0.45)
+    float dist= distance(float2(0, 0), float2(i.worldPosition.xy));
+    if (dist > 0)
     {
-        color.rgb = _Color * abs(sin(i.worldPosition.y + _Time.y)) + (_Color.gbr*0.8 + _Color) * abs(cos(i.worldPosition.y + _Time.y));
+        dist = clamp(dist * 3 - 1,0,1);
+        fixed4 orgincol = color;
+        fixed3 rimcol = _Color * abs(sin(i.worldPosition.y + _Time.y)) + (_Color.gbr*0.8 + _Color) * abs(cos(i.worldPosition.y + _Time.y));
         //color.a *= abs(sin(_Time.y));
-        
+        color.rgb = orgincol * (1-dist) + rimcol * (dist);
         //if ()
         //{
             

@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class GyroInput : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
         Input.gyro.enabled = true;
+        print("gyro on");
+    }
+    // Start is called before the first frame update
+    private void OnDisable()
+    {
+        Input.gyro.enabled = false;
+        print("gyro off");
     }
 
     // Update is called once per frame

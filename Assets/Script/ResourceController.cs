@@ -65,8 +65,20 @@ public class ResourceController : MonoBehaviour
             byte[] bytes = File.ReadAllBytes(Application.persistentDataPath + "/" + i + ".png");
             Texture2D tmpt =new Texture2D(1,1);
             tmpt.LoadImage(bytes);
+            tmpt=CropToSquere(tmpt);
             m_textures[i] = tmpt;
         }
+    }
+    public Texture2D CropToSquere(Texture2D texture)
+    {
+        var adjusted=(texture.width > texture.height)? texture.height: texture.width;
+
+        var pixels=texture.GetPixels(texture.width/2-adjusted/2, texture.height/2-adjusted/2, adjusted, adjusted);
+
+        var newtex = new Texture2D(adjusted, adjusted);
+        newtex.SetPixels(pixels);
+        newtex.Apply();
+        return newtex;
     }
     public void SetTextures()
     {
