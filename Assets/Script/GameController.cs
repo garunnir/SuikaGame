@@ -1,11 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
@@ -29,6 +26,7 @@ public class GameController : MonoBehaviour
     Transform[] m_HoldVFXS;
     [SerializeField] RectTransform[] m_BlockUIs;
     [SerializeField] Button m_Btn_Restart;
+    [SerializeField] GameObject[] m_Guidelines;
     private bool m_heavyShotEnabled=true;
     public UnityAction GameStarted;
     public Transform GetCloneParent() { return m_cloneGroup; }
@@ -142,6 +140,7 @@ public class GameController : MonoBehaviour
         m_Btn_Restart.onClick.AddListener(() => { Restart(); });
         GameManager.Instance.gameController.GameStarted += () =>
         {
+
             foreach (var item in m_heavyShotRemain)
             {
                 item.gameObject.SetActive(true);
@@ -153,6 +152,7 @@ public class GameController : MonoBehaviour
         GetHoldVFX(VFX.HeavyShot).gameObject.SetActive(false);
         m_heavyShot.onClick.AddListener(() => { HeavyShotToggle(); });
         m_GameOverGroup.gameObject.SetActive(false);
+
     }
     Coroutine m_CurGameOver;
     public void HeavyShot(bool enable)
@@ -179,7 +179,7 @@ public class GameController : MonoBehaviour
             if (cur.gameObject.activeSelf) find = true;
         }
         if (!find) { return; }//하나라도 있거나 켜져있는상태면 통과
-        if (GetHoldVFX(VFX.HeavyShot).gameObject.activeSelf)
+        if (GetHoldVFX(VFX.HeavyShot)!=null&&GetHoldVFX(VFX.HeavyShot).gameObject.activeSelf)
         {
             HeavyShot(false);
             for (int i = 0; i < m_heavyShotRemain.Length; i++)
@@ -206,7 +206,7 @@ public class GameController : MonoBehaviour
     }
     public void GameOver()
     {
-        GameManager.isGameRunning = false;
+        PauseGame(true);
         if(m_CurGameOver==null)m_CurGameOver=StartCoroutine(Cor_GameOver());
     }
     public void Restart()
@@ -219,7 +219,7 @@ public class GameController : MonoBehaviour
     {
         CleanCloneGroup();
         GameStarted?.Invoke();
-        GameManager.isGameRunning=true;
+        PauseGame(false);
         GameManager.Instance.mergeController.GetBall(UnityEngine.Random.Range(0, 5));
         ShowScore();
     }
@@ -227,8 +227,10 @@ public class GameController : MonoBehaviour
     {
         for (int i = 0; i<m_cloneGroup.childCount;i++)
         {
+            m_cloneGroup.GetChild(i).gameObject.SetActive(false);
             Destroy(m_cloneGroup.GetChild(i).gameObject,0.1f);
         }
+        GameManager.Instance.resourceController.GetBallList().Clear();
     }
     IEnumerator Cor_GameOver()
     {
@@ -255,6 +257,48 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(1);
         m_GameOverGroup.gameObject.SetActive(true);
         m_Score.text = m_score.ToString();
+        m_CurGameOver = null;
+    }
+    public void PauseGame(bool boolean)
+    {
+        if (boolean)
+        {
+            Time.timeScale = 0;
+            GameManager.isGameRunning = false;
+        }
+        else
+        {
+            Time.timeScale = 1;
+            GameManager.isGameRunning = true;
+        }
+    }
+    int m_activatedPage=1;
+    public void StartGuideline()
+    {
+#if UNITY_EDITOR
+        PlayerPrefs.SetInt("showGuideline", 1);
+#endif
+        int check = PlayerPrefs.GetInt("showGuideline");
+        if (check == 0) { m_Guidelines[0]?.SetActive(false); Restart(); }
+        else 
+        {
+            m_Guidelines[0]?.SetActive(true);
+            PauseGame(true);
+        } 
+    }
+    public void GetNextGuidePage()
+    {
+        if (++m_activatedPage == m_Guidelines.Length)
+        {
+            m_Guidelines[0]?.SetActive(false);
+            Restart();
+        }
+        for (int i = 1; i < m_Guidelines.Length; i++)
+        {
+            if (m_activatedPage == i)
+                m_Guidelines[m_activatedPage]?.SetActive(true);
+            else m_Guidelines[i]?.SetActive(false);
+        }
     }
     void Update()
     {
@@ -284,6 +328,7 @@ public class GameController : MonoBehaviour
         //{
         //    m_endline.gameObject.SetActive(false);
         //}
+        if (!GameManager.isGameRunning) return;
         if (GameManager.Instance.eventManager.GetTime() > 5)
         {
             GameOver();

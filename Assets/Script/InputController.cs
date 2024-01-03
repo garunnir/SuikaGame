@@ -18,13 +18,13 @@ public class InputController : MonoBehaviour
         right.transform.position = Vector3.one * lr[1];
         GameManager.Instance.resourceController.IsLoadDone += () =>
         {
-            GameManager.Instance.gameController.Restart();
-
+            GameManager.Instance.gameController.StartGuideline();
         };
     }
     private void Update()
     {
         if (!GameManager.isGameRunning) return;
+        //print(Screen.height-Input.mousePosition.y);
         if (Input.GetMouseButtonDown(0))
         {
             isUI=GameManager.Instance.gameController.CalBlocKUIs();
