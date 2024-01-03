@@ -6,6 +6,7 @@ public class GyroInput : MonoBehaviour
 {
     private void OnEnable()
     {
+        if (PlayerPrefs.GetInt("useGyro",1) == 0) return;
         Input.gyro.enabled = true;
         print("gyro on");
     }
@@ -14,6 +15,7 @@ public class GyroInput : MonoBehaviour
     {
         Input.gyro.enabled = false;
         print("gyro off");
+        transform.eulerAngles=Vector3.zero;
     }
 
     // Update is called once per frame

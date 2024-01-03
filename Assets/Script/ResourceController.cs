@@ -15,15 +15,16 @@ public class ResourceController : MonoBehaviour
     private void Start()
     {
         CreateBalls();
-        if(!File.Exists(Application.persistentDataPath+"/0.png"))
-        SaveTextrues();
+        if (!File.Exists(Application.persistentDataPath + "/0.png"))
+        {
+            SaveTextrues();
+        }
         else
         {
             GetTextures();
             SetTextures();
-            IsLoadDone?.Invoke();
         }
-
+        IsLoadDone?.Invoke();
     }
     private void CreateBalls()
     {

@@ -19,6 +19,7 @@ public class GameManager : Singleton<GameManager>
     public SoundController soundController=>m_soundController;
 
     [SerializeField] Toggle m_ShowGuideline;
+    public bool UseGyro { get => Input.gyro.enabled; set => SetGyroConfig(value); }
     // Start is called before the first frame update
     void Start()
     {
@@ -26,8 +27,9 @@ public class GameManager : Singleton<GameManager>
         m_ShowGuideline.onValueChanged.AddListener((x)=> { PlayerPrefs.SetInt("showGuideline", x ? 0 : 1); });
     }
     // Update is called once per frame
-    void Update()
+    public void SetGyroConfig(bool enable)
     {
-        
+        PlayerPrefs.SetInt("useGyro", enable ? 1 : 0);
     }
+
 }

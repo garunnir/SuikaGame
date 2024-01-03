@@ -206,7 +206,8 @@ public class GameController : MonoBehaviour
     }
     public void GameOver()
     {
-        PauseGame(true);
+        print("gameover");
+        //PauseGame(true);
         if(m_CurGameOver==null)m_CurGameOver=StartCoroutine(Cor_GameOver());
     }
     public void Restart()
@@ -234,6 +235,7 @@ public class GameController : MonoBehaviour
     }
     IEnumerator Cor_GameOver()
     {
+        GameManager.isGameRunning = false;
         List<MergeSender> balls=GameManager.Instance.resourceController.GetBallList();
         foreach (MergeSender b in balls)
         {
@@ -278,11 +280,14 @@ public class GameController : MonoBehaviour
 #if UNITY_EDITOR
         PlayerPrefs.SetInt("showGuideline", 1);
 #endif
+        m_activatedPage = 1;
+        if(!PlayerPrefs.HasKey("showGuideline")) PlayerPrefs.SetInt("showGuideline", 1);
         int check = PlayerPrefs.GetInt("showGuideline");
         if (check == 0) { m_Guidelines[0]?.SetActive(false); Restart(); }
         else 
         {
             m_Guidelines[0]?.SetActive(true);
+            m_Guidelines[1]?.SetActive(true);
             PauseGame(true);
         } 
     }
