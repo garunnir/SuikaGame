@@ -7,8 +7,6 @@ pipeline{
     environment{
         PROJECT_PATH = "${CUSTOM_WORKSPACE}\"${PROJECT_NAME}"
         KEYSTORE_PASS = credentials('KEYSTORE_PASS')
-        ALIAS_NAME = credentials('ALIAS_NAME')
-        ALIAS_PASS = credentials('ALIAS_PASS')
         BUNDLE_ID = "com.Garunnir.suika" //Your bundle ID. Ex: com.defaultcompany.test
         MAC_IP_ADDRESS = "" //Your mac IP address
         MAC_USERNAME = "" //Your mac username 
