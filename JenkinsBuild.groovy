@@ -77,10 +77,10 @@ _
         }
 
         stage('Deploy Android - Google Play'){
+            when{expression {DEPLOY_ANDROID_AAB == 'true'}}
             environment{
                 GOOGLE_PLAY_API_JSON_LOCATION = credentials('GOOGLE_PLAY_API_JSONLOCATION')
             }
-            when{expression {DEPLOY_ANDROID_AAB == 'true'}}
             steps{
                 script{
                     bat '''
