@@ -6,8 +6,7 @@ def UNITY_INSTALLATION = "Z:\\Work\\Unity\\Editor\\${UNITY_VERSION}\\Editor\\"
 pipeline{
     environment{
         PROJECT_PATH = "${CUSTOM_WORKSPACE}\"${PROJECT_NAME}"
-
-        GOOGLE_PLAY_API_JSON_LOCATION = credentials('GOOGLE_PLAY_API_JSON_LOCATION')
+_
         TEST_PROJECT_KEYSTORE_FILE = credentials('TEST_PROJECT_KEYSTORE_FILE')
         KEYSTORE_PASS = credentials('KEYSTORE_PASS')
         ALIAS_NAME = credentials('ALIAS_NAME')
@@ -78,6 +77,9 @@ pipeline{
         }
 
         stage('Deploy Android - Google Play'){
+            environment{
+                GOOGLE_PLAY_API_JSON_LOCATION = credentials('GOOGLE_PLAY_API_JSONLOCATION')
+            }
             when{expression {DEPLOY_ANDROID_AAB == 'true'}}
             steps{
                 script{
