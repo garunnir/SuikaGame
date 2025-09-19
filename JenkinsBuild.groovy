@@ -117,11 +117,11 @@ pipeline{
                     env.PROJECT_NAME = PROJECT_NAME
 
                     powershell '''
-                    net use \%MAC_IP_ADDRESS% /user:%MAC_USERNAME% $env:MAC_PASSWORD
-                    Remove-Item -Path \%MAC_IP_ADDRESS%\%MAC_USERNAME%\Desktop\Jenkins_Builds\$env:PROJECT_NAME -Recurse -Force -ErrorAction Ignore
-                    New-Item -ItemType directory -Path \%MAC_IP_ADDRESS%\%MAC_USERNAME%\Desktop\Jenkins_Builds\$env:PROJECT_NAME -Force
-                    Copy-Item -Path "$env:PROJECT_PATH\Builds\iOS" -Destination \%MAC_IP_ADDRESS%\%MAC_USERNAME%\Desktop\Jenkins_Builds\$env:PROJECT_NAME -Recurse -Force
-                    net use \%MAC_IP_ADDRESS% /delete
+                    net use \\%MAC_IP_ADDRESS% /user:%MAC_USERNAME% $env:MAC_PASSWORD
+                    Remove-Item -Path \\%MAC_IP_ADDRESS%\\%MAC_USERNAME%\\Desktop\\Jenkins_Builds\\$env:PROJECT_NAME -Recurse -Force -ErrorAction Ignore
+                    New-Item -ItemType directory -Path \\%MAC_IP_ADDRESS%\\%MAC_USERNAME%\\Desktop\\Jenkins_Builds\\$env:PROJECT_NAME -Force
+                    Copy-Item -Path "$env:PROJECT_PATH\\Builds\\iOS" -Destination \\%MAC_IP_ADDRESS%\\%MAC_USERNAME%\\Desktop\\Jenkins_Builds\\$env:PROJECT_NAME -Recurse -Force
+                    net use \\%MAC_IP_ADDRESS% /delete
                     '''
                 }
             }
