@@ -1,11 +1,11 @@
 def PROJECT_NAME = "jenkins-unity-test"
 def CUSTOM_WORKSPACE = "Z:\\Work\\Jenkins\\Unity_Projects\\${PROJECT_NAME}"
 def UNITY_VERSION = "6000.1.11f1"
-def UNITY_INSTALLATION = "Z:\\Work\\Unity\\Editor\\${UNITY_VERSION}\\Editor\\"
+def UNITY_INSTALLATION = "Z:\\Work\\Unity\\Editor\\${UNITY_VERSION}\\Editor"
 
 pipeline{
     environment{
-        PROJECT_PATH = "${CUSTOM_WORKSPACE}\"${PROJECT_NAME}"
+        PROJECT_PATH = "${CUSTOM_WORKSPACE}"
         KEYSTORE_PASS = credentials('KEYSTORE_PASS')
         BUNDLE_ID = "com.Garunnir.suika" //Your bundle ID. Ex: com.defaultcompany.test
         MAC_IP_ADDRESS = "" //Your mac IP address
