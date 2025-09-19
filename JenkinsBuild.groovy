@@ -6,7 +6,6 @@ def UNITY_INSTALLATION = "Z:\\Work\\Unity\\Editor\\${UNITY_VERSION}\\Editor\\"
 pipeline{
     environment{
         PROJECT_PATH = "${CUSTOM_WORKSPACE}\"${PROJECT_NAME}"
-        TEST_PROJECT_KEYSTORE_FILE = credentials('TEST_PROJECT_KEYSTORE_FILE')
         KEYSTORE_PASS = credentials('KEYSTORE_PASS')
         ALIAS_NAME = credentials('ALIAS_NAME')
         ALIAS_PASS = credentials('ALIAS_PASS')
