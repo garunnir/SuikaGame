@@ -1,6 +1,6 @@
 def PROJECT_NAME = "jenkins-unity-test"
 def CUSTOM_WORKSPACE = "Z:\\Work\\Jenkins\\Unity_Projects\\${PROJECT_NAME}"
-def UNITY_VERSION = "6000.1.11f1"
+def UNITY_VERSION = "6000.2.5f1"
 def UNITY_INSTALLATION = "Z:\\Work\\Unity\\Editor\\${UNITY_VERSION}\\Editor"
 
 pipeline{
